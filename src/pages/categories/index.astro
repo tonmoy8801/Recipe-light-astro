@@ -1,32 +1,106 @@
 ---
 import Base from "@/layouts/Base.astro";
 import { getTaxonomy } from "@/lib/taxonomyParser.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
 import { humanize } from "@/lib/utils/textConverter";
+import taxonomyFilter from "@/lib/utils/taxonomyFilter";
 
-const categories = await getTaxonomy("posts", "categories");
+import CategoryIconGrid from "@/components/categories/CategoryIconGrid.astro";
+import CategorySearchForm from "@/components/categories/CategorySearchForm.astro";
+import SectionSeparator from "@/components/categories/SectionSeparator.astro";
+import Top10Grid from "@/components/categories/Top10Grid.astro";
+import FeaturedRecipe from "@/components/categories/FeaturedRecipe.astro";
+import NewsletterBlock from "@/components/categories/NewsletterBlock.astro";
+import CategorySection from "@/components/categories/CategorySection.astro";
 
-import { BiCategoryAlt } from "react-icons/bi";
+// ── Data ──────────────────────────────────────────────────────────────────
+const allCategories = await getTaxonomy("posts", "categories");
+const allPosts      = sortByDate(await getSinglePage("posts"));
+
+// Top 10 (most recent)
+const top10 = allPosts.slice(0, 10);
+
+// Featured = the most recently published post
+const featuredPost = allPosts[0];
+
+// Per-category sections: every category that has at least 1 post, up to 4 posts each
+const categorySections = allCategories
+  .map((slug) => ({
+    slug,
+    label: humanize(slug),
+    posts: taxonomyFilter(allPosts, "categories", slug).slice(0, 4),
+  }))
+  .filter((s) => s.posts.length > 0);
 ---
 
-<Base title={"Categories"}>
-  <section class="section">
-    <div class="container text-center">
-      <h1 class="h2 page-heading">Categories</h1>
-      <ul class="space-x-4">
-        {
-          categories.map((category) => (
-            <li class="inline-block">
-              <a
-                href={`/categories/${category}`}
-                class="rounded-lg bg-light px-4 py-2 text-dark transition hover:bg-primary hover:text-white flex items-center group"
-              >
-                <BiCategoryAlt className="mr-1 text-primary group-hover:text-white transition h-6 w-6 scale-75" />
-                {humanize(category || "")}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
+<Base
+  title="Recipe Index"
+  meta_title="Recipe Index — Browse by Category"
+  description="Browse all recipes by category, season, and more."
+>
+  <div class="cat-page">
+
+    <!-- Page heading -->
+    <header class="cat-header">
+      <h2 class="cat-title">recipe index</h2>
+      <p class="cat-sub">Browse by category, season, holiday, and more!</p>
+      <CategorySearchForm />
+    </header>
+
+    <!-- Category circle grid -->
+    <CategoryIconGrid categories={allCategories} />
+
+    <SectionSeparator />
+
+    <!-- Top 10 numbered grid -->
+    <Top10Grid posts={top10} />
+
+    <SectionSeparator />
+
+    <!-- Viral / featured recipe -->
+    <FeaturedRecipe post={featuredPost} />
+
+    <!-- Newsletter -->
+    <NewsletterBlock />
+
+    <SectionSeparator />
+
+    <!-- Repeating per-category sections -->
+    {categorySections.map((section) => (
+      <>
+        <CategorySection
+          title={section.label}
+          categorySlug={section.slug}
+          posts={section.posts}
+        />
+        <SectionSeparator />
+      </>
+    ))}
+
+  </div>
 </Base>
+
+<style>
+  .cat-page {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+    font-family: var(--font-body);
+  }
+  .cat-header { margin-bottom: 8px; }
+  .cat-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--color-text);
+    text-transform: lowercase;
+    margin-bottom: 8px;
+  }
+  .cat-sub {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+</style>
