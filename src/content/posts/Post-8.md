@@ -29,7 +29,7 @@ authorUrl: "/about"
 
 # ── Images ───────────────────────────────────
 # Replace these with your actual image paths
-image: "/images/posts/01.jpg"
+image: "https://www.livingchirpy.com/wp-content/uploads/2026/03/carrotcakebakedoatmeal.07-1097x1536.jpg"
 heroImage: "/images/recipes/garlic-butter-chicken/hero.jpg"
 thumbnail: "/images/recipes/garlic-butter-chicken/thumb.jpg"
 ogImage: "/images/recipes/garlic-butter-chicken/hero.jpg"
