@@ -32,7 +32,7 @@ const author = allAuthors.find((a) =>
     border-radius: 12px;
     padding: 24px;
     text-align: center;
-    background: #fdf8f3;
+    background: var(--color-subscribe-bg);
   }
   .author-photo {
     width: 80px;
@@ -51,13 +51,13 @@ const author = allAuthors.find((a) =>
     margin-bottom: 6px;
   }
   .author-name {
-    font-family: "Playfair Display", Georgia, serif;
+    font-family: var(--font-heading);
     font-size: 1.1rem;
     font-weight: 400;
     margin-bottom: 10px;
   }
-  .author-name a { color: #2a2a2a; text-decoration: none; }
-  .author-name a:hover { color: #3a6b4f; }
+  .author-name a { color: var(--color-text); text-decoration: none; }
+  .author-name a:hover { color: var(--color-links); }
   .author-bio {
     font-size: 0.84rem;
     line-height: 1.65;
@@ -68,8 +68,9 @@ const author = allAuthors.find((a) =>
     display: inline-block;
     font-size: 0.8rem;
     font-weight: 600;
-    color: #3a6b4f;
+    color: var(--color-links);
     text-decoration: underline;
     text-underline-offset: 2px;
+    font-family: var(--font-body);
   }
 </style>

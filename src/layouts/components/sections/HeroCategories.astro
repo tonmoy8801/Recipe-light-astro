@@ -26,14 +26,14 @@ const categories = [
   .hero-categories {
     padding: 60px 24px;
     text-align: center;
-    background: #fdf8f3;
+    background: var(--color-subscribe-bg);
   }
   .hero-headline {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: var(--font-heading);
     font-size: clamp(1.5rem, 4vw, 2.4rem);
     font-weight: 400;
     margin-bottom: 40px;
-    color: #2a2a2a;
+    color: var(--color-text);
     line-height: 1.3;
   }
   .category-list {
@@ -51,7 +51,8 @@ const categories = [
     align-items: center;
     text-decoration: none;
     gap: 10px;
-    color: #444;
+    color: var(--color-text);
+    font-family: var(--font-body);
   }
   .category-item img {
     width: 130px;

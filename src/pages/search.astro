@@ -1,12 +1,12 @@
 ---
 import SearchBar from "@/helpers/SearchBar";
-import Base from "@/layouts/Base.astro";
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import SidebarRecipeGrid from "@/components/sidebar/SidebarRecipeGrid.astro";
+import PopularRecipes from "@/components/sidebar/PopularRecipes.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 
-// Retrieve all articles
 const posts = await getSinglePage("posts");
 
-// List of items to search in
 const searchList = posts.map((item) => ({
   slug: item.id,
   data: item.data,
@@ -14,10 +14,27 @@ const searchList = posts.map((item) => ({
 }));
 ---
 
-<Base title={`Search`}>
-  <section class="section">
-    <div class="container">
-      <SearchBar client:load searchList={searchList} />
-    </div>
+<ArticleLayout title="Search">
+  <section class="search-section">
+    <h1 class="search-heading">Search Recipes</h1>
+    <SearchBar client:load searchList={searchList} />
   </section>
-</Base>
+
+  <Fragment slot="sidebar">
+    <SidebarRecipeGrid />
+    <PopularRecipes />
+  </Fragment>
+</ArticleLayout>
+
+<style>
+  .search-section {
+    padding: 8px 0 32px;
+  }
+  .search-heading {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--color-text);
+    margin-bottom: 24px;
+  }
+</style>

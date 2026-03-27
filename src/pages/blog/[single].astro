@@ -4,8 +4,6 @@ import ArticleHeader from "@/components/article/ArticleHeader.astro";
 import ActionButtons from "@/components/article/ActionButtons.astro";
 import ShareBar from "@/components/article/ShareBar.astro";
 import QuickLookCard from "@/components/article/QuickLookCard.astro";
-import TableOfContents from "@/components/article/TableOfContents.astro";
-import ReviewQuote from "@/components/article/ReviewQuote.astro";
 import InlineEmailSave from "@/components/article/InlineEmailSave.astro";
 import StepGrid from "@/components/article/StepGrid.astro";
 import FAQAccordion from "@/components/article/FAQAccordion.astro";
@@ -44,24 +42,12 @@ const { Content } = await render(post);
 >
   <!-- ── Main content (default slot) ── -->
   <ArticleHeader post={post} />
-  <ActionButtons />
+  <ActionButtons title={title} image={image || ""} />
   <ShareBar title={title} slug={post.id} />
 
   {image && <img src={image} alt={title} class="hero-image" />}
 
   {recipe && <QuickLookCard recipe={{ ...recipe, name: title }} />}
-
-  <TableOfContents />
-
-  {
-    recipe?.reviewQuote && (
-      <ReviewQuote
-        quote={recipe.reviewQuote.text}
-        author={recipe.reviewQuote.author}
-        stars={recipe.reviewQuote.stars}
-      />
-    )
-  }
 
   <div class="article-body content">
     <Content />

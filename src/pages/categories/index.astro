@@ -1,5 +1,5 @@
 ---
-import Base from "@/layouts/Base.astro";
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
 import { getTaxonomy } from "@/lib/taxonomyParser.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
@@ -13,6 +13,8 @@ import Top10Grid from "@/components/categories/Top10Grid.astro";
 import FeaturedRecipe from "@/components/categories/FeaturedRecipe.astro";
 import NewsletterBlock from "@/components/categories/NewsletterBlock.astro";
 import CategorySection from "@/components/categories/CategorySection.astro";
+import SidebarRecipeGrid from "@/components/sidebar/SidebarRecipeGrid.astro";
+import PopularRecipes from "@/components/sidebar/PopularRecipes.astro";
 
 // ── Data ──────────────────────────────────────────────────────────────────
 const allCategories = await getTaxonomy("posts", "categories");
@@ -34,7 +36,7 @@ const categorySections = allCategories
   .filter((s) => s.posts.length > 0);
 ---
 
-<Base
+<ArticleLayout
   title="Recipe Index"
   meta_title="Recipe Index — Browse by Category"
   description="Browse all recipes by category, season, and more."
@@ -79,13 +81,16 @@ const categorySections = allCategories
     ))}
 
   </div>
-</Base>
+
+  <Fragment slot="sidebar">
+    <SidebarRecipeGrid />
+    <PopularRecipes />
+  </Fragment>
+</ArticleLayout>
 
 <style>
   .cat-page {
-    max-width: 1170px;
-    margin: 0 auto;
-    padding: 40px 24px 60px;
+    padding: 8px 0 40px;
     font-family: var(--font-body);
   }
   .cat-header { margin-bottom: 8px; }

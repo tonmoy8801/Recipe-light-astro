@@ -1,6 +1,8 @@
 ---
 import Posts from "@/components/Posts.astro";
-import Base from "@/layouts/Base.astro";
+import ArticleLayout from "@/layouts/ArticleLayout.astro";
+import SidebarRecipeGrid from "@/components/sidebar/SidebarRecipeGrid.astro";
+import PopularRecipes from "@/components/sidebar/PopularRecipes.astro";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import { getTaxonomy } from "@/lib/taxonomyParser.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
@@ -26,12 +28,36 @@ const sortedPosts = sortByDate(filterByCategory);
 const title = humanize(category || "");
 ---
 
-<Base title={title || "Category"}>
-  <div class="section">
-    <div class="container">
-      <p class="text-center text-2xl mb-4">Showing Posts From</p>
-      <h1 class="h2 mb-16 text-center text-primary">{title}</h1>
-      <Posts posts={sortedPosts} fluid={false} />
-    </div>
+<ArticleLayout title={title || "Category"}>
+  <div class="category-page">
+    <p class="cat-eyebrow">Showing Posts From</p>
+    <h1 class="cat-heading">{title}</h1>
+    <Posts posts={sortedPosts} fluid={false} />
   </div>
-</Base>
+
+  <Fragment slot="sidebar">
+    <SidebarRecipeGrid />
+    <PopularRecipes />
+  </Fragment>
+</ArticleLayout>
+
+<style>
+  .category-page {
+    padding: 8px 0 32px;
+  }
+  .cat-eyebrow {
+    font-size: 0.9rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    font-family: var(--font-body);
+  }
+  .cat-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 400;
+    color: var(--color-primary);
+    margin-bottom: 28px;
+  }
+</style>
