@@ -6,8 +6,11 @@
   --color-links:         #955865;
   --color-text:          #010101;
   --color-subscribe-bg:  #f5eee2;
-  --font-heading:        'Playfair Display', Georgia, serif;
-  --font-body:           'Source Sans 3', system-ui, sans-serif;
+  --font-heading:        'Montserrat', sans-serif;
+  --font-body:           'Open Sans', system-ui, sans-serif;
+  --font-serif:          'Playfair Display', Georgia, serif;
+  --font-lora:           'Lora', Georgia, serif;
+  --font-script:         'Dancing Script', cursive;
 }
 
 html {
