@@ -1,16 +1,17 @@
 ---
-const recipes = [
-  { title: "High Protein Chicken Salad", href: "/content/posts/Post-8", image: "/images/posts/01.jpg" },
-  { title: "Overnight Oats", href: "/recipes/overnight-oats", image: "/images/posts/02.jpg" },
-  { title: "Garlic Butter Shrimp", href: "/recipes/garlic-butter-shrimp", image: "/images/posts/03.jpg" },
-  { title: "Quinoa Buddha Bowl", href: "/recipes/quinoa-buddha-bowl", image: "/images/posts/04.jpg" },
-  { title: "Turkey Meatballs", href: "/recipes/turkey-meatballs", image: "/images/posts/05.jpg" },
-  { title: "Chia Seed Pudding", href: "/recipes/chia-pudding", image: "/images/posts/06.jpg" },
-  { title: "Spicy Chicken Ramen", href: "/recipes/spicy-chicken-ramen", image: "/images/posts/07.jpg" },
-  { title: "Baked Salmon Fillet", href: "/recipes/baked-salmon", image: "/images/posts/01.jpg" },
-  { title: "Sweet Potato Soup", href: "/recipes/sweet-potato-soup", image: "/images/posts/02.jpg" },
-  { title: "Greek Yogurt Parfait", href: "/recipes/greek-yogurt-parfait", image: "/images/posts/03.jpg" },
-];
+import { getSinglePage } from "@/lib/contentParser.astro";
+
+const allPosts = await getSinglePage("posts");
+
+const recipes = allPosts
+  .filter((p) => p.data.image)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 10)
+  .map((p) => ({
+    title: p.data.title,
+    href: `/blog/${p.id}`,
+    image: p.data.image,
+  }));
 ---
 <section class="top10-section">
   <h2 class="section-heading">Top 10 Recipes</h2>
