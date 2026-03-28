@@ -23,7 +23,7 @@ Bowl meals are the perfect meal prep format — a base, a protein, some veggies,
 
 ## 1. Chicken and Rice Meal Prep Bowls
 
-![Chicken and rice meal prep bowls with broccoli and sauce](/images/posts/roundup/chicken-rice-bowl.jpg)
+![Chicken and rice meal prep bowls with broccoli and sauce](https://www.livingchirpy.com/wp-content/uploads/2024/03/californiarollbowl.05.jpg)
 
 Seasoned chicken thighs roasted with garlic, lemon, and paprika, served over fluffy white rice with steamed broccoli and a drizzle of teriyaki sauce. This is the classic meal prep bowl for a reason — it's filling, balanced, and reheats perfectly every single time.
 
@@ -35,7 +35,7 @@ Seasoned chicken thighs roasted with garlic, lemon, and paprika, served over flu
 
 ## 2. Ground Turkey Taco Bowls
 
-![Ground turkey taco bowls with cauliflower rice, corn, and salsa](/images/posts/roundup/turkey-taco-bowl.jpg)
+![Ground turkey taco bowls with cauliflower rice, corn, and salsa](https://www.livingchirpy.com/wp-content/uploads/2024/12/sheetpansausageandvegetables.06.jpg)
 
 Ground turkey cooked with smoky taco seasoning, served over cauliflower rice with black beans, corn, and fresh salsa. Keep the avocado and sour cream on the side until serving so everything stays fresh. A crowd-pleasing bowl that works for both lunch and dinner.
 
