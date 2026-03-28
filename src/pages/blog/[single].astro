@@ -42,7 +42,7 @@ const { Content } = await render(post);
 >
   <!-- ── Main content (default slot) ── -->
   <ArticleHeader post={post} />
-  <ActionButtons title={title} image={image || ""} />
+  <ActionButtons title={title} image={image || ""} isRecipe={!!recipe} />
   <ShareBar title={title} slug={post.id} />
 
   {image && <img src={image} alt={title} class="hero-image" />}
@@ -99,8 +99,7 @@ const { Content } = await render(post);
 <style>
   .hero-image {
     width: 100%;
-    max-height: 520px;
-    object-fit: cover;
+    height: auto;
     border-radius: 8px;
     display: block;
     margin: 20px 0;

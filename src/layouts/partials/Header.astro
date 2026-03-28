@@ -59,7 +59,7 @@ const { main }: { main: NavigationLink[] } = menu;
           <>
             {menu.hasChildren ? (
               <li class="nav-item nav-dropdown group relative cursor-pointer">
-                <span class="nav-link inline-flex items-center">
+                <span class="nav-link inline-flex items-center nav-dropdown-toggle" role="button" tabindex="0">
                   {menu.name}
                   <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20">
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
@@ -98,3 +98,35 @@ const { main }: { main: NavigationLink[] } = menu;
     </div>
   </nav>
 </header>
+
+<script>
+  // Mobile dropdown: toggle on click for touch/mobile devices
+  function initMobileDropdowns() {
+    const toggles = document.querySelectorAll(".nav-dropdown-toggle");
+    toggles.forEach((toggle) => {
+      toggle.addEventListener("click", (e) => {
+        // Only intercept on mobile (nav-menu is not flex/visible by default)
+        const navMenu = document.getElementById("nav-menu");
+        const isMobile = navMenu && getComputedStyle(navMenu).display !== "none" && window.innerWidth < 768;
+        if (isMobile || window.innerWidth < 768) {
+          e.preventDefault();
+          const li = (toggle as HTMLElement).closest("li");
+          const dropdown = li?.querySelector(".nav-dropdown-list");
+          if (dropdown) {
+            dropdown.classList.toggle("hidden");
+          }
+        }
+      });
+      toggle.addEventListener("keydown", (e) => {
+        if ((e as KeyboardEvent).key === "Enter" || (e as KeyboardEvent).key === " ") {
+          e.preventDefault();
+          (toggle as HTMLElement).click();
+        }
+      });
+    });
+  }
+
+  // Run on initial load and after Astro view transitions
+  initMobileDropdowns();
+  document.addEventListener("astro:page-load", initMobileDropdowns);
+</script>

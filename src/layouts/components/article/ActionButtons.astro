@@ -1,8 +1,10 @@
 ---
-const { title = "", image = "" } = Astro.props;
+const { title = "", image = "", isRecipe = false } = Astro.props;
 ---
 <div class="action-buttons">
-  <a href="#recipe-card" class="action-btn action-btn--primary">↓ Jump to Recipe</a>
+  {isRecipe && (
+    <a href="#recipe-card" class="action-btn action-btn--primary">↓ Jump to Recipe</a>
+  )}
   <a
     href="#"
     class="action-btn action-btn--red"
@@ -12,9 +14,11 @@ const { title = "", image = "" } = Astro.props;
     target="_blank"
     rel="noopener noreferrer"
   >📌 Pin Recipe</a>
-  <button onclick="window.print()" class="action-btn action-btn--light" aria-label="Print recipe">
-    🖨 Print
-  </button>
+  {isRecipe && (
+    <button onclick="window.print()" class="action-btn action-btn--light" aria-label="Print recipe">
+      🖨 Print
+    </button>
+  )}
 </div>
 
 <script>
