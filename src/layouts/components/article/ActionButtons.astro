@@ -22,14 +22,19 @@ const { title = "", image = "", isRecipe = false } = Astro.props;
 </div>
 
 <script>
-  const btn = document.getElementById("pinterest-btn");
-  if (btn) {
-    const pageUrl = encodeURIComponent(window.location.href);
-    const image = encodeURIComponent((btn as HTMLElement).dataset.image || "");
-    const title = encodeURIComponent((btn as HTMLElement).dataset.title || "");
-    (btn as HTMLAnchorElement).href =
-      `https://pinterest.com/pin/create/button/?url=${pageUrl}&media=${image}&description=${title}`;
+  function initPinterestBtn() {
+    const btn = document.getElementById("pinterest-btn");
+    if (btn) {
+      const pageUrl = encodeURIComponent(window.location.href.split("#")[0]);
+      const image = encodeURIComponent((btn as HTMLElement).dataset.image || "");
+      const title = encodeURIComponent((btn as HTMLElement).dataset.title || "");
+      (btn as HTMLAnchorElement).href =
+        `https://pinterest.com/pin/create/button/?url=${pageUrl}&media=${image}&description=${title}`;
+    }
   }
+
+  initPinterestBtn();
+  document.addEventListener("astro:page-load", initPinterestBtn);
 </script>
 
 <style>

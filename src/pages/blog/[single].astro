@@ -4,7 +4,6 @@ import ArticleHeader from "@/components/article/ArticleHeader.astro";
 import ActionButtons from "@/components/article/ActionButtons.astro";
 import ShareBar from "@/components/article/ShareBar.astro";
 import QuickLookCard from "@/components/article/QuickLookCard.astro";
-import InlineEmailSave from "@/components/article/InlineEmailSave.astro";
 import StepGrid from "@/components/article/StepGrid.astro";
 import FAQAccordion from "@/components/article/FAQAccordion.astro";
 import RelatedRecipes from "@/components/article/RelatedRecipes.astro";
@@ -58,8 +57,6 @@ const { Content } = await render(post);
       <StepGrid steps={recipe.steps} recipeName={title} />
     )
   }
-
-  <InlineEmailSave />
 
   {
     recipe?.faqs && recipe.faqs.length > 0 && (
