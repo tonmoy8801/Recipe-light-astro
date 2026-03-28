@@ -1,6 +1,7 @@
 ---
+import config from "@/config/config.json";
 const { title = "", slug = "" } = Astro.props;
-const base = "https://yoursite.com"; // update with real domain
+const base = config.site.base_url.replace(/\/$/, "");
 const url = encodeURIComponent(`${base}/blog/${slug}`);
 const text = encodeURIComponent(title);
 
