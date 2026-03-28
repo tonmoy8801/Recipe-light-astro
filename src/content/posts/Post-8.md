@@ -24,7 +24,8 @@ tags:
   - easy
 
 # ── Author ───────────────────────────────────
-author: "Kaeleigh Pugliese"
+authors:
+  - "Kaeleigh Pugliese"
 authorUrl: "/about"
 
 # ── Images ───────────────────────────────────

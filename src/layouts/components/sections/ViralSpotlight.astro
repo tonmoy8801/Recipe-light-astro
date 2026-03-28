@@ -1,4 +1,10 @@
 ---
+import { getSinglePage } from "@/lib/contentParser.astro";
+
+const allPosts = await getSinglePage("posts");
+const latestPost = allPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())[0];
+const spotlightHref = latestPost ? `/blog/${latestPost.id}` : "/";
 ---
 <section class="spotlight">
   <div class="spotlight-image">
@@ -8,7 +14,7 @@
     <span class="badge-label">viral recipe!</span>
     <h2>Spicy Chicken Ramen</h2>
     <p>A bold, comforting noodle soup made with a savory broth, tender chicken, and classic ramen toppings. Ready in 30 minutes and bursting with flavor.</p>
-    <a href="/recipes/spicy-chicken-ramen" class="cta-btn">Get the recipe →</a>
+    <a href={spotlightHref} class="cta-btn">Get the recipe →</a>
   </div>
 </section>
 

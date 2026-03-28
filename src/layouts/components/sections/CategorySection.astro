@@ -1,36 +1,24 @@
 ---
 import RecipeCard from '../ui/RecipeCard.astro';
-
-interface Recipe {
-  title: string;
-  href: string;
-  image: string;
-}
+import { getSinglePage } from "@/lib/contentParser.astro";
 
 interface Props {
   title: string;
   category: string;
-  recipes?: Recipe[];
 }
 
-const { title, category, recipes = [] } = Astro.props;
+const { title, category } = Astro.props;
 
-const defaultRecipesByCategory: Record<string, Recipe[]> = {
-  dinner: [
-    { title: "Sheet Pan Chicken Thighs", href: "/recipes/sheet-pan-chicken", image: "/images/posts/01.jpg" },
-    { title: "Beef & Broccoli Stir Fry", href: "/recipes/beef-broccoli", image: "/images/posts/02.jpg" },
-    { title: "Baked Cod with Veggies", href: "/recipes/baked-cod", image: "/images/posts/03.jpg" },
-    { title: "Creamy Mushroom Pasta", href: "/recipes/mushroom-pasta", image: "/images/posts/04.jpg" },
-  ],
-  breakfast: [
-    { title: "Banana Oat Pancakes", href: "/recipes/banana-oat-pancakes", image: "/images/posts/05.jpg" },
-    { title: "Veggie Egg Scramble", href: "/recipes/veggie-scramble", image: "/images/posts/06.jpg" },
-    { title: "Acai Smoothie Bowl", href: "/recipes/acai-bowl", image: "/images/posts/07.jpg" },
-    { title: "Avocado Toast Deluxe", href: "/recipes/avocado-toast", image: "/images/posts/01.jpg" },
-  ],
-};
-
-const displayRecipes = recipes.length > 0 ? recipes : (defaultRecipesByCategory[category] || defaultRecipesByCategory.dinner);
+const allPosts = await getSinglePage("posts");
+const displayRecipes = allPosts
+  .filter((p) => p.data.image && p.data.categories?.includes(category))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 4)
+  .map((p) => ({
+    title: p.data.title,
+    href: `/blog/${p.id}`,
+    image: p.data.image as string,
+  }));
 ---
 <section class="cat-section">
   <h2 class="section-heading">{title}</h2>

@@ -1,12 +1,17 @@
 ---
 import RecipeCard from '../ui/RecipeCard.astro';
+import { getSinglePage } from "@/lib/contentParser.astro";
 
-const recipes = [
-  { title: "Greek Chicken Bowl", href: "/recipes/greek-chicken-bowl", image: "/images/posts/01.jpg" },
-  { title: "Avocado Egg Toast", href: "/recipes/avocado-egg-toast", image: "/images/posts/02.jpg" },
-  { title: "Lemon Herb Salmon", href: "/recipes/lemon-herb-salmon", image: "/images/posts/03.jpg" },
-  { title: "Veggie Stir Fry", href: "/recipes/veggie-stir-fry", image: "/images/posts/04.jpg" },
-];
+const allPosts = await getSinglePage("posts");
+const recipes = allPosts
+  .filter((p) => p.data.image)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 4)
+  .map((p) => ({
+    title: p.data.title,
+    href: `/blog/${p.id}`,
+    image: p.data.image as string,
+  }));
 ---
 <section class="trending-section">
   <h2 class="section-heading">Trending Recipes</h2>
